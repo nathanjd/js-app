@@ -72,5 +72,5 @@ Push to the bucket "my-bucket" by executing the grunt task "deploy" from the com
 [GruntJS](http://gruntjs.com/) - Build System
 
 ### Server
-[Amazon S3](http://aws.amazon.com/documentation/s3/)
+[Amazon S3](http://aws.amazon.com/documentation/s3/)  
 [S3Ajax](http://decafbad.com/trac/wiki/S3Ajax) - Javascript S3 Library
