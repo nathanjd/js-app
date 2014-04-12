@@ -1,5 +1,4 @@
 # js-app
-===============
 
 A starting point and build environment for javascript applications deployed to [Amazon S3](http://aws.amazon.com/documentation/s3/).
 
@@ -11,28 +10,24 @@ Download and install the [GruntJS](http://gruntjs.com/) command line tool.
 
     $ npm install -g grunt-cli
 
-Install coffescript to cli.
-
-    $ npm install -g coffee-script
-
 Cd to project directory, then download and install NodeJS packages.
 
     $ npm install
 
-Create compiled directory (runs default grunt task).
+Create compiled directory (compiles and watches source).
 
     $ grunt
 
 Run server.
 
-    $ coffee server.cofffee
+    $ node server
 
 Open http://localhost:9090 in a web browser.
 
 
 ## Development
 
-Watch for and compile changes to sass/coffeescript.
+Watch for and compile changes to source files.
     
     $ grunt watch
 
@@ -53,17 +48,21 @@ Push to the bucket "my-bucket" by executing the grunt task "deploy" from the com
 
 ## Technologies Used
 ### CSS
-[SASS](http://sass-lang.com/docs/yardoc/)  
-[Bourbon](http://bourbon.io/docs/) - CSS Framework  
+[SASS](http://sass-lang.com/docs/yardoc/) - CSS Pre-processor  
+[Bourbon](http://bourbon.io/docs/) - Grid Framework  
 [Bourbon Neat](http://neat.bourbon.io/docs/) - Responsive Framework  
 
 ### Javascript
-[CoffeeScript](http://coffeescript.org/)  
-[RequireJS](http://requirejs.org/) - Dependency Management  
-[Underscore](http://underscorejs.org/) - Utility  
-[Backbone](http://backbonejs.org/) - Base View & Router classes  
+[RequireJS](http://requirejs.org/) - Dependency Management
+
+[Crossroads](http://millermedeiros.github.io/crossroads.js/) - Routing  
+[Hasher](https://github.com/millermedeiros/hasher/) - URL Hash Management  
+[Signals](http://millermedeiros.github.io/js-signals/) - Eventing
+
+[Lo-Dash](http://lodash.com/) - Utility  
 [jQuery](http://api.jquery.com/) - DOM Interaction and AJAX  
-[Handlebars](http://handlebarsjs.com/) - Templating  
+[Handlebars](http://handlebarsjs.com/) - Templating
+
 [Mocha](http://visionmedia.github.io/mocha/) - Unit Testing  
 [Chai](http://chaijs.com/guide/styles/) - Assertions
 
@@ -71,6 +70,6 @@ Push to the bucket "my-bucket" by executing the grunt task "deploy" from the com
 [NodeJS](http://nodejs.org/)  
 [GruntJS](http://gruntjs.com/) - Build System
 
-### Server
+### Server Integration
 [Amazon S3](http://aws.amazon.com/documentation/s3/)  
 [S3Ajax](http://decafbad.com/trac/wiki/S3Ajax) - Javascript S3 Library
