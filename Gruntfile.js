@@ -100,8 +100,7 @@ module.exports = function(grunt) {
     });
 
     // set target bucket for javascript
-    grunt.registerTask(
-        'bucket',
+    grunt.registerTask('bucket',
         'Generate bucket target file',
         function(bucket) {
             grunt.file.write('src/js/bucket.coffee',

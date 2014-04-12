@@ -21,25 +21,32 @@ require.config({
 });
 
 require([
-    'jquery', 'lodash', 'crossroads', 'hasher', 'templates',  'bucket', 'S3Ajax'
+    'crossroads', 'hasher',  'bucket', 'S3Ajax'
 ],
-function($, _, crossroads, hasher, templates, bucket, S3) {
+function(router, hasher, bucket, S3) {
     // set up s3 library
     //var s3 = new S3(credentials);
 
-    // setup crossroads
-    crossroads.addRoute('home');
-    crossroads.addRoute('lorem');
-    crossroads.addRoute('lorem/ipsum');
-    crossroads.routed.add(console.log, console); // log all routes
+    // DEBUG: Log all matched routes.
+    router.routed.add(console.log, console);
 
     // setup hasher
-    function parseHash(newHash, oldHash){
-      crossroads.parse(newHash);
+    function parseHash(newHash, oldHash) {
+      router.parse(newHash);
     }
-    hasher.initialized.add(parseHash); // parse initial hash
-    hasher.changed.add(parseHash); // parse hash changes
-    hasher.init(); // start listening for history change
 
-    console.log('hello');
+    // parse initial hash
+    hasher.initialized.add(parseHash);
+
+    // parse hash changes
+    hasher.changed.add(parseHash);
+
+    // Load views.
+    require([
+        'views/index',
+        'views/page'
+    ], function() {
+        // start listening for history change
+        hasher.init();
+    });
 });
