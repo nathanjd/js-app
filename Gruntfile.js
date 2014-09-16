@@ -1,4 +1,14 @@
+var neat = require('node-neat');
+
 module.exports = function(grunt) {
+    var aws;
+
+    try {
+        aws = grunt.file.readJSON('.aws.json');
+    } catch (e) {
+        aws = {};
+    }
+
     // load 3rd party grunt plugins
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -9,8 +19,8 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        aws: grunt.file.readJSON('.aws.json'),
-        
+        aws: aws,
+
         clean: ['compiled/'],
 
         copy: {
@@ -41,7 +51,7 @@ module.exports = function(grunt) {
                 options: {
                     namespace: 'templates',
                     amd: true,
-                    processName: function(filePath) {
+                    processName: function (filePath) {
                         var templateDir = grunt.config('pkg.templateDir'),
                             filename = filePath.split(templateDir + '/')[1],
                             templateName = filename.split('.hbs')[0];
@@ -60,6 +70,9 @@ module.exports = function(grunt) {
 
         sass: {
             dist: {
+                options: {
+                    loadPath: neat.includePaths
+                },
                 files: {
                     'compiled/css/style.css': 'src/css/base.scss'
                 }
@@ -102,18 +115,16 @@ module.exports = function(grunt) {
     // set target bucket for javascript
     grunt.registerTask('bucket',
         'Generate bucket target file',
-        function(bucket) {
+        function (bucket) {
             grunt.file.write('src/js/bucket.coffee',
                 'define(function() { return "' + bucket + '"; });');
         }
     );
-        
-            
 
     // set bucket, compile and push, then set bucket back to dev
     grunt.registerTask('deploy',
         'Push to an s3 bucket',
-        function(bucket) {
+        function (bucket) {
             devBucket = grunt.config('pkg.devBucket');
             grunt.config('s3.deploy.bucket', bucket);
             grunt.task.run([
